@@ -1,12 +1,11 @@
 'use client';
 
-import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import ScrollReveal, { SectionBar } from '@/components/ui/ScrollReveal';
+import YouTubePlayer from '@/components/ui/YouTubePlayer';
 
 export default function AboutSection() {
   const t = useTranslations('home');
-  const [isMuted, setIsMuted] = useState(true);
 
   return (
     <section className="bg-white py-16 sm:py-20">
@@ -37,36 +36,14 @@ export default function AboutSection() {
             </div>
           </ScrollReveal>
 
-          {/* YouTube Video side — autoplay muted */}
+          {/* YouTube Video side — autoplay muted, with mobile fallback */}
           <ScrollReveal direction="left">
-            <div className="relative w-full overflow-hidden rounded-xl shadow-lg border border-border bg-card">
-              <div className="aspect-video">
-                <iframe
-                  className="w-full h-full"
-                  src={`https://www.youtube.com/embed/GXUREVXP0eM?autoplay=1&mute=${isMuted ? 1 : 0}&loop=1&playlist=GXUREVXP0eM&playsinline=1&rel=0`}
-                  title={t('aboutVideoTitle')}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-              {/* Mute/Unmute button */}
-              <button
-                onClick={() => setIsMuted(!isMuted)}
-                className="absolute bottom-3 end-3 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-all duration-200 hover:bg-black/70 hover:scale-110"
-                aria-label={isMuted ? 'Unmute' : 'Mute'}
-              >
-                {isMuted ? (
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
-                  </svg>
-                ) : (
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                  </svg>
-                )}
-              </button>
-            </div>
+            <YouTubePlayer
+              videoId="GXUREVXP0eM"
+              title={t('aboutVideoTitle')}
+              aspectClass="aspect-video"
+              className="rounded-xl shadow-lg border border-border bg-card"
+            />
           </ScrollReveal>
         </div>
       </div>

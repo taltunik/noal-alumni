@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from 'react';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import ScrollReveal, { SectionBar } from '@/components/ui/ScrollReveal';
+import YouTubePlayer from '@/components/ui/YouTubePlayer';
 
 // Demo alumni data — famous Arab personalities (temporary)
 const ALUMNI = [
@@ -20,7 +20,6 @@ const ALUMNI = [
 
 export default function AlumniGallery() {
   const t = useTranslations('home');
-  const [isMuted, setIsMuted] = useState(true);
 
   return (
     <section className="bg-background py-16 sm:py-20 overflow-hidden">
@@ -42,33 +41,14 @@ export default function AlumniGallery() {
         <div className="flex flex-col lg:flex-row items-center gap-8 lg:gap-10">
           {/* YouTube Shorts video — right side in RTL */}
           <ScrollReveal direction="right" className="shrink-0">
-            <div className="relative w-56 sm:w-64 lg:w-72 overflow-hidden rounded-2xl shadow-xl border-4 border-primary/10">
-              <div className="aspect-[9/16]">
-                <iframe
-                  className="w-full h-full"
-                  src={`https://www.youtube.com/embed/yp1mQcZhxBg?autoplay=1&mute=${isMuted ? 1 : 0}&loop=1&playlist=yp1mQcZhxBg&playsinline=1&controls=0&showinfo=0&rel=0`}
-                  title={t('alumniVideoTitle')}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                />
-              </div>
-              {/* Mute/Unmute button */}
-              <button
-                onClick={() => setIsMuted(!isMuted)}
-                className="absolute bottom-3 end-3 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-sm transition-all duration-200 hover:bg-black/70 hover:scale-110"
-                aria-label={isMuted ? 'Unmute' : 'Mute'}
-              >
-                {isMuted ? (
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
-                  </svg>
-                ) : (
-                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072M18.364 5.636a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-                  </svg>
-                )}
-              </button>
+            <div className="w-56 sm:w-64 lg:w-72">
+              <YouTubePlayer
+                videoId="yp1mQcZhxBg"
+                title={t('alumniVideoTitle')}
+                aspectClass="aspect-[9/16]"
+                showControls={false}
+                className="rounded-2xl shadow-xl border-4 border-primary/10"
+              />
             </div>
           </ScrollReveal>
 
