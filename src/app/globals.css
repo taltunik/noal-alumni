@@ -1,26 +1,247 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* NOAL-inspired color palette */
+  --color-primary: #0071BC;
+  --color-primary-dark: #005a96;
+  --color-primary-light: #e8f4fd;
+  --color-accent: #C1272D;
+  --color-accent-dark: #9e1f24;
+  --color-accent-light: #fce8e9;
+  --color-background: #f5f5f5;
+  --color-foreground: #1a202c;
+  --color-secondary: #C1272D;
+  --color-muted: #6b7280;
+  --color-border: #e0e0e0;
+  --color-card: #ffffff;
+  --color-card-hover: #f3f4f6;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-assistant: var(--font-assistant);
+  --font-ibm-arabic: var(--font-ibm-plex-arabic);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-background);
+  color: var(--color-foreground);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* Ensure smooth RTL transitions */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="ltr"] {
+  text-align: left;
+}
+
+/* Embla carousel overrides */
+.embla {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+
+/* ===== Scroll Reveal Animations ===== */
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes revealLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes revealRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes revealScale {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInBar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Scroll reveal base styles */
+.reveal {
+  opacity: 0;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.reveal-up {
+  transform: translateY(40px);
+}
+
+.reveal.reveal-left {
+  transform: translateX(-40px);
+}
+
+.reveal.reveal-right {
+  transform: translateX(40px);
+}
+
+.reveal.reveal-scale {
+  transform: scale(0.92);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+/* Staggered children animation */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal-stagger.revealed > *:nth-child(1) { transition-delay: 0.05s; }
+.reveal-stagger.revealed > *:nth-child(2) { transition-delay: 0.1s; }
+.reveal-stagger.revealed > *:nth-child(3) { transition-delay: 0.15s; }
+.reveal-stagger.revealed > *:nth-child(4) { transition-delay: 0.2s; }
+.reveal-stagger.revealed > *:nth-child(5) { transition-delay: 0.25s; }
+.reveal-stagger.revealed > *:nth-child(6) { transition-delay: 0.3s; }
+.reveal-stagger.revealed > *:nth-child(7) { transition-delay: 0.35s; }
+.reveal-stagger.revealed > *:nth-child(8) { transition-delay: 0.4s; }
+.reveal-stagger.revealed > *:nth-child(9) { transition-delay: 0.45s; }
+.reveal-stagger.revealed > *:nth-child(10) { transition-delay: 0.5s; }
+.reveal-stagger.revealed > *:nth-child(11) { transition-delay: 0.55s; }
+.reveal-stagger.revealed > *:nth-child(12) { transition-delay: 0.6s; }
+
+.reveal-stagger.revealed > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section divider bar animation */
+.section-bar {
+  height: 4px;
+  background: var(--color-accent);
+  transform-origin: center;
+  transform: scaleX(0);
+  transition: transform 0.8s ease;
+}
+
+.section-bar.revealed {
+  transform: scaleX(1);
+}
+
+/* ===== NOAL-style Section Components ===== */
+
+/* Full-width colored banner */
+.noal-banner {
+  position: relative;
+  width: 100%;
+  padding: 1rem 2rem;
+  color: white;
+  font-weight: 700;
+  text-align: center;
+}
+
+.noal-banner-red {
+  background: var(--color-accent);
+}
+
+.noal-banner-blue {
+  background: var(--color-primary);
+}
+
+/* Image card with text overlay (NOAL article card style) */
+.noal-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+  cursor: pointer;
+}
+
+.noal-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 50%, transparent 100%);
+  transition: background 0.3s ease;
+}
+
+.noal-card:hover::after {
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.25) 50%, transparent 100%);
+}
+
+.noal-card img {
+  transition: transform 0.5s ease;
+}
+
+.noal-card:hover img {
+  transform: scale(1.05);
+}
+
+.noal-card-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  padding: 1.5rem;
+  color: white;
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-align: center;
 }
