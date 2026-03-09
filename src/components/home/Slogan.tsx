@@ -27,7 +27,23 @@ export default function Slogan() {
       </div>
 
       <div className="relative mx-auto max-w-5xl px-6 flex flex-col items-center justify-center">
+        {/* Site title */}
         <ScrollReveal direction="up">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white/90 text-center mb-6">
+            {t('siteTitle')}
+          </h1>
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={100}>
+          <div className="mb-6 flex justify-center gap-3">
+            <span className="inline-block h-1 w-12 rounded-full bg-accent" />
+            <span className="inline-block h-1 w-6 rounded-full bg-white/30" />
+            <span className="inline-block h-1 w-12 rounded-full bg-accent" />
+          </div>
+        </ScrollReveal>
+
+        {/* Arabic slogan */}
+        <ScrollReveal direction="up" delay={200}>
           <p
             className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-snug tracking-tight text-center w-full whitespace-nowrap"
             dir="rtl"
@@ -37,7 +53,7 @@ export default function Slogan() {
           </p>
         </ScrollReveal>
 
-        <ScrollReveal direction="up" delay={200}>
+        <ScrollReveal direction="up" delay={300}>
           <div className="mt-8 flex justify-center gap-3">
             <span className="inline-block h-1.5 w-16 rounded-full bg-accent" />
             <span className="inline-block h-1.5 w-10 rounded-full bg-white/40" />
