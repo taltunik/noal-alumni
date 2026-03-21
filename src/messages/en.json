@@ -290,7 +290,8 @@
   "footer": {
     "rights": "© 2026 Arab Branches Circle - NOAL. All rights reserved.",
     "followUs": "Follow Us",
-    "slogan": "You were part of the story... stay part of the family"
+    "slogan": "You were part of the story... stay part of the family",
+    "admin": "Admin Login"
   },
   "common": {
     "loading": "Loading...",

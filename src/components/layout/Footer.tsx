@@ -72,11 +72,17 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Copyright */}
-          <div className="mt-8 border-t border-white/20 pt-6 text-center">
+          {/* Copyright + Admin link */}
+          <div className="mt-8 border-t border-white/20 pt-6 flex flex-col items-center gap-2">
             <p className="text-xs text-white/60">
               {t('rights')}
             </p>
+            <Link
+              href="/admin"
+              className="text-xs text-white/30 hover:text-white/60 transition-colors"
+            >
+              {t('admin')}
+            </Link>
           </div>
         </div>
       </div>

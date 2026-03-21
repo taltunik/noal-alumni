@@ -11,7 +11,7 @@ const NAV_ITEMS = [
   { key: 'events', href: '/careers-events' },
   { key: 'jobs', href: '/careers-events' },
   { key: 'volunteer', href: '/keep-in-touch' },
-  { key: 'programs', href: '/programs/social-leadership' },
+  { key: 'programs', href: '/programs' },
   { key: 'joinFamily', href: '/register' },
 ] as const;
 
