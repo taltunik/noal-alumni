@@ -6,7 +6,8 @@ import toast from 'react-hot-toast';
 import Input from '@/components/ui/Input';
 import Select from '@/components/ui/Select';
 import Button from '@/components/ui/Button';
-import ScrollReveal, { SectionBar } from '@/components/ui/ScrollReveal';
+import ScrollReveal from '@/components/ui/ScrollReveal';
+import PageHeader from '@/components/layout/PageHeader';
 import { TOWNS, getTownLabel } from '@/lib/constants';
 import { validatePhone, cleanPhone } from '@/lib/validation';
 
@@ -104,23 +105,10 @@ export default function KeepInTouchForm() {
   }
 
   return (
-    <section className="relative bg-white py-16 sm:py-20">
-      <div className="absolute top-0 start-0 end-0 h-1 bg-accent" />
-
+    <>
+    <PageHeader title={t('title')} subtitle={t('subtitle')} />
+    <section className="relative bg-white py-12 sm:py-16">
       <div className="mx-auto max-w-2xl px-4">
-        {/* Section heading */}
-        <ScrollReveal direction="up">
-          <div className="mb-10 text-center">
-            <h1 className="text-3xl sm:text-4xl font-bold text-primary">
-              {t('title')}
-            </h1>
-            <SectionBar className="mt-4" />
-            <p className="mt-4 text-muted text-base">
-              {t('subtitle')}
-            </p>
-          </div>
-        </ScrollReveal>
-
         <ScrollReveal direction="up" delay={150}>
           <div className="rounded-lg bg-background p-6 sm:p-8 shadow-md border-t-4 border-t-primary">
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -239,5 +227,6 @@ export default function KeepInTouchForm() {
         </ScrollReveal>
       </div>
     </section>
+    </>
   );
 }

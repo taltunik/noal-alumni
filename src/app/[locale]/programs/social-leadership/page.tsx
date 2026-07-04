@@ -1,6 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import PageHeader from '@/components/layout/PageHeader';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -17,18 +18,9 @@ function SocialLeadershipContent() {
   const t = useTranslations('programs');
 
   return (
+    <>
+    <PageHeader title={t('socialLeadershipTitle')} subtitle={t('socialLeadershipPageSubtitle')} />
     <div className="mx-auto max-w-4xl px-4 py-12">
-      {/* Header */}
-      <div className="mb-10 text-center">
-        <h1 className="text-3xl sm:text-4xl font-bold text-primary">
-          {t('socialLeadershipTitle')}
-        </h1>
-        <p className="mt-2 text-lg text-muted">{t('socialLeadershipPageSubtitle')}</p>
-        <div className="mt-4 flex justify-center">
-          <span className="inline-block h-1 w-20 rounded-full bg-accent" />
-        </div>
-      </div>
-
       {/* Hero image */}
       <div className="relative w-full h-64 sm:h-80 rounded-xl overflow-hidden shadow-lg mb-10">
         <Image
@@ -66,6 +58,7 @@ function SocialLeadershipContent() {
         <span className="inline-block h-1 w-12 rounded-full bg-primary" />
       </div>
     </div>
+    </>
   );
 }
 

@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import JobCard from '@/components/careers-events/JobCard';
 import EventCard from '@/components/careers-events/EventCard';
 import InterestModal from '@/components/careers-events/InterestModal';
+import PageHeader from '@/components/layout/PageHeader';
 import type { Job, CommunityEvent } from '@/types';
 
 type Filter = 'all' | 'jobs' | 'events';
@@ -58,18 +59,9 @@ export default function CareersEventsContent() {
   const hasResults = (showJobs && jobs.length > 0) || (showEvents && events.length > 0);
 
   return (
+    <>
+    <PageHeader title={t('title')} subtitle={t('subtitle')} />
     <div className="mx-auto max-w-7xl px-4 py-12">
-      {/* Header */}
-      <div className="mb-8 text-center">
-        <h1 className="text-3xl sm:text-4xl font-bold text-primary">
-          {t('title')}
-        </h1>
-        <p className="mt-2 text-lg text-muted">{t('subtitle')}</p>
-        <div className="mt-4 flex justify-center">
-          <span className="inline-block h-1 w-20 rounded-full bg-accent" />
-        </div>
-      </div>
-
       {/* Filter tabs */}
       <div className="mb-8 flex justify-center">
         <div className="inline-flex rounded-lg bg-white border border-border p-1 gap-1">
@@ -139,5 +131,6 @@ export default function CareersEventsContent() {
         />
       )}
     </div>
+    </>
   );
 }

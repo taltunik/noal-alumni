@@ -3,6 +3,7 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { getFontClass } from '@/lib/fonts';
+import { getSiteSettings } from '@/lib/mock-data';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import AnnouncementBanner from '@/components/AnnouncementBanner';
@@ -32,6 +33,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   const messages = await getMessages();
   const direction = RTL_LOCALES.includes(locale) ? 'rtl' : 'ltr';
   const fontClass = getFontClass(locale);
+  const settings = getSiteSettings();
 
   return (
     <html lang={locale} dir={direction}>
@@ -54,7 +56,12 @@ export default async function LocaleLayout({ children, params }: Props) {
             <Header />
             <AnnouncementBanner />
             <main className="flex-1">{children}</main>
-            <Footer />
+            <Footer
+              instagramUrl={settings.instagramUrl}
+              facebookUrl={settings.facebookUrl}
+              youtubeUrl={settings.youtubeUrl}
+              contactEmail={settings.contactEmail}
+            />
           </div>
         </NextIntlClientProvider>
       </body>

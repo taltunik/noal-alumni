@@ -1,10 +1,36 @@
 'use client';
 
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 
-export default function Footer() {
+type FooterProps = {
+  instagramUrl?: string;
+  facebookUrl?: string;
+  youtubeUrl?: string;
+  contactEmail?: string;
+};
+
+const QUICK_LINKS = [
+  { key: 'home', href: '/' },
+  { key: 'ourStory', href: '/our-story' },
+  { key: 'careersEvents', href: '/careers-events' },
+  { key: 'programs', href: '/programs' },
+  { key: 'joinFamily', href: '/register' },
+] as const;
+
+export default function Footer({
+  instagramUrl = 'https://www.instagram.com/noal.arab/',
+  facebookUrl = 'https://www.facebook.com/noal.arab',
+  youtubeUrl = 'https://www.youtube.com/channel/UCpj6JtKiRv0gNsU6ArrUtKg',
+  contactEmail = 'arab@noal.org.il',
+}: FooterProps) {
   const t = useTranslations('footer');
+  const tNav = useTranslations('nav');
+  const slogan = t('slogan');
+  const rawTranslation = t('sloganTranslation');
+  // Show the translated line only when it differs from the Arabic slogan (i.e., in he/en)
+  const sloganTranslation = rawTranslation !== slogan ? rawTranslation : null;
 
   return (
     <footer className="mt-auto">
@@ -13,28 +39,61 @@ export default function Footer() {
 
       {/* Main footer content */}
       <div className="bg-primary text-white">
-        <div className="mx-auto max-w-7xl px-4 py-10">
-          <div className="flex flex-col items-center gap-8 md:flex-row md:justify-between">
-            {/* Logo and slogan */}
-            <div className="flex flex-col items-center md:items-start gap-3">
-              <Link href="/" className="flex items-center gap-2.5">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-primary font-bold text-lg">
-                  N
+        <div className="mx-auto max-w-7xl px-4 py-12">
+          <div className="grid grid-cols-1 gap-10 text-center md:grid-cols-3 md:text-start">
+            {/* Brand + slogan */}
+            <div className="flex flex-col items-center md:items-start gap-4">
+              <Link href="/" className="flex items-center gap-3">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white p-1 shadow-sm">
+                  <Image
+                    src="/images/logo.png"
+                    alt="NOAL"
+                    width={44}
+                    height={44}
+                    className="h-full w-full object-contain"
+                  />
                 </div>
-                <span className="text-lg font-bold text-white">NOAL</span>
+                <span className="text-lg font-bold text-white leading-tight">
+                  {tNav('brandName')}
+                </span>
               </Link>
-              <p className="text-sm text-white/70 text-center md:text-start" dir="auto">
-                {t('slogan')}
-              </p>
+              <div className="flex flex-col gap-1">
+                <p className="text-sm font-semibold text-white/90" dir="rtl">
+                  {t('slogan')}
+                </p>
+                {sloganTranslation && (
+                  <p className="text-sm text-white/60">{sloganTranslation}</p>
+                )}
+              </div>
             </div>
 
-            {/* Social Links */}
-            <div className="flex flex-col items-center gap-3">
-              <span className="text-sm font-medium text-white/70">{t('followUs')}</span>
+            {/* Quick links */}
+            <div className="flex flex-col items-center md:items-start gap-3">
+              <span className="text-sm font-bold uppercase tracking-wide text-white/70">
+                {t('quickLinks')}
+              </span>
+              <nav className="flex flex-col items-center md:items-start gap-2">
+                {QUICK_LINKS.map(({ key, href }) => (
+                  <Link
+                    key={key}
+                    href={href}
+                    className="text-sm text-white/80 transition-colors hover:text-white"
+                  >
+                    {tNav(key)}
+                  </Link>
+                ))}
+              </nav>
+            </div>
+
+            {/* Social + contact */}
+            <div className="flex flex-col items-center md:items-start gap-3">
+              <span className="text-sm font-bold uppercase tracking-wide text-white/70">
+                {t('followUs')}
+              </span>
               <div className="flex gap-3">
                 {/* Instagram */}
                 <a
-                  href="https://instagram.com"
+                  href={instagramUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-accent transition-colors duration-300"
@@ -46,7 +105,7 @@ export default function Footer() {
                 </a>
                 {/* Facebook */}
                 <a
-                  href="https://facebook.com"
+                  href={facebookUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-accent transition-colors duration-300"
@@ -58,7 +117,7 @@ export default function Footer() {
                 </a>
                 {/* YouTube */}
                 <a
-                  href="https://youtube.com"
+                  href={youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-accent transition-colors duration-300"
@@ -69,11 +128,21 @@ export default function Footer() {
                   </svg>
                 </a>
               </div>
+              <a
+                href={`mailto:${contactEmail}`}
+                className="mt-1 inline-flex items-center gap-2 text-sm text-white/80 transition-colors hover:text-white"
+                dir="ltr"
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                </svg>
+                {contactEmail}
+              </a>
             </div>
           </div>
 
           {/* Copyright + Admin link */}
-          <div className="mt-8 border-t border-white/20 pt-6 flex flex-col items-center gap-2">
+          <div className="mt-10 border-t border-white/20 pt-6 flex flex-col items-center gap-2">
             <p className="text-xs text-white/60">
               {t('rights')}
             </p>

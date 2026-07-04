@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Link, usePathname } from '@/i18n/navigation';
 import clsx from 'clsx';
@@ -8,8 +9,8 @@ import LanguageSwitcher from './LanguageSwitcher';
 
 const NAV_ITEMS = [
   { key: 'home', href: '/' },
-  { key: 'events', href: '/careers-events' },
-  { key: 'jobs', href: '/careers-events' },
+  { key: 'ourStory', href: '/our-story' },
+  { key: 'careersEvents', href: '/careers-events' },
   { key: 'volunteer', href: '/keep-in-touch' },
   { key: 'programs', href: '/programs' },
   { key: 'joinFamily', href: '/register' },
@@ -24,12 +25,18 @@ export default function Header() {
     <header className="sticky top-0 z-40 bg-primary shadow-md">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5">
-          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-primary font-bold text-lg">
-            N
+        <Link href="/" className="flex items-center gap-3">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white p-1 shadow-sm">
+            <Image
+              src="/images/logo.png"
+              alt="NOAL"
+              width={40}
+              height={40}
+              className="h-full w-full object-contain"
+            />
           </div>
-          <span className="hidden sm:block text-lg font-bold text-white">
-            NOAL
+          <span className="hidden sm:block text-base lg:text-lg font-bold text-white leading-tight">
+            {t('brandName')}
           </span>
         </Link>
 

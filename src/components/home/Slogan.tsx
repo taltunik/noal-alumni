@@ -5,6 +5,10 @@ import ScrollReveal from '@/components/ui/ScrollReveal';
 
 export default function Slogan() {
   const t = useTranslations('home');
+  const slogan = t('slogan');
+  const rawTranslation = t('sloganTranslation');
+  // Show the translated line only when it differs from the Arabic slogan (i.e., in he/en)
+  const sloganTranslation = rawTranslation !== slogan ? rawTranslation : null;
 
   return (
     <section className="relative overflow-hidden bg-primary py-16 sm:py-20 md:py-24">
@@ -45,12 +49,17 @@ export default function Slogan() {
         {/* Arabic slogan */}
         <ScrollReveal direction="up" delay={200}>
           <p
-            className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-snug tracking-tight text-center w-full whitespace-nowrap"
+            className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold text-white leading-snug tracking-tight text-center w-full"
             dir="rtl"
             style={{ textAlign: 'center' }}
           >
-            {t('slogan')}
+            {slogan}
           </p>
+          {sloganTranslation && (
+            <p className="mt-4 text-base sm:text-lg md:text-xl text-white/75 text-center">
+              {sloganTranslation}
+            </p>
+          )}
         </ScrollReveal>
 
         <ScrollReveal direction="up" delay={300}>

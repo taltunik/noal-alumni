@@ -4,7 +4,8 @@ import { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import useEmblaCarousel from 'embla-carousel-react';
 import Autoplay from 'embla-carousel-autoplay';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 import clsx from 'clsx';
 
 const HERO_SLIDES = [
@@ -40,6 +41,7 @@ const HERO_SLIDES = [
 
 export default function HeroCarousel() {
   const locale = useLocale();
+  const tNav = useTranslations('nav');
   const isRTL = locale === 'he' || locale === 'ar';
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
@@ -81,10 +83,7 @@ export default function HeroCarousel() {
         <div className="embla__container">
           {HERO_SLIDES.map((slide) => (
             <div key={slide.id} className="embla__slide">
-              <div
-                className="relative flex items-center justify-center overflow-hidden bg-primary-dark"
-                style={{ aspectRatio: '21/9' }}
-              >
+              <div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden bg-primary-dark sm:aspect-[16/9] lg:aspect-[21/9]">
                 {/* Real photo background */}
                 <Image
                   src={slide.image}
@@ -99,10 +98,19 @@ export default function HeroCarousel() {
                 <div className="absolute inset-0 bg-black/40" />
 
                 {/* Text overlay */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-5 p-4 text-center">
                   <h2 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-lg">
                     {getText(slide)}
                   </h2>
+                  <Link
+                    href="/register"
+                    className="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-2.5 sm:px-8 sm:py-3 text-sm sm:text-base font-bold text-white shadow-lg transition-all duration-300 hover:bg-accent-dark hover:shadow-xl hover:-translate-y-0.5"
+                  >
+                    {tNav('joinFamily')}
+                    <svg className="h-4 w-4 rtl:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </Link>
                 </div>
 
                 {/* Bottom gradient */}

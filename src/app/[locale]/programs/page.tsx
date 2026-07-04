@@ -2,6 +2,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { Link } from '@/i18n/navigation';
+import PageHeader from '@/components/layout/PageHeader';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -58,18 +59,9 @@ function ProgramsContent() {
   const t = useTranslations('programs');
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-12">
-      {/* Header */}
-      <div className="mb-12 text-center">
-        <h1 className="text-3xl sm:text-4xl font-bold text-primary">
-          {t('sectionTitle')}
-        </h1>
-        <p className="mt-2 text-lg text-muted">{t('sectionSubtitle')}</p>
-        <div className="mt-4 flex justify-center">
-          <span className="inline-block h-1 w-20 rounded-full bg-accent" />
-        </div>
-      </div>
-
+    <>
+      <PageHeader title={t('sectionTitle')} subtitle={t('sectionSubtitle')} />
+      <div className="mx-auto max-w-5xl px-4 py-12">
       {/* Program Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
         {PROGRAMS.map((program) => {
@@ -116,6 +108,7 @@ function ProgramsContent() {
           );
         })}
       </div>
-    </div>
+      </div>
+    </>
   );
 }
