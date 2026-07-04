@@ -19,6 +19,8 @@ const QUICK_LINKS = [
   { key: 'joinFamily', href: '/register' },
 ] as const;
 
+const KINIM_SITE_URL = 'https://noal-arab-branches.vercel.app/';
+
 export default function Footer({
   instagramUrl = 'https://www.instagram.com/noal.arab/',
   facebookUrl = 'https://www.facebook.com/noal.arab',
@@ -82,6 +84,17 @@ export default function Footer({
                     {tNav(key)}
                   </Link>
                 ))}
+                <a
+                  href={KINIM_SITE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-white/90 transition-colors hover:text-white"
+                >
+                  {t('kinimLink')}
+                  <svg className="h-3.5 w-3.5 rtl:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </a>
               </nav>
             </div>
 
